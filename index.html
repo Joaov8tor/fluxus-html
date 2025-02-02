@@ -83,7 +83,7 @@
                 const response = await fetch(`http://helya.pylex.xyz:10234/api/addlink?url=${encodeURIComponent(url)}`);
                 const data = await response.json();
 
-                // Exibir o resultado da API
+                // Exibir apenas o valor de "result"
                 if (data && data.result) {
                     messageElement.textContent = `Result: ${data.result}`;
                 } else {
