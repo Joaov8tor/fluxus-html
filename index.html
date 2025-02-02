@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bypass Fluxus</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        input, button { margin: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Bypass Fluxus</h2>
+    <input type="text" id="linkInput" placeholder="Cole o link aqui...">
+    <button onclick="bypassLink()">Bypass</button>
+    <p id="status"></p>
+
+    <script>
+        function bypassLink() {
+            let link = document.getElementById("linkInput").value;
+            let statusText = document.getElementById("status");
+            if (!link) {
+                statusText.innerText = "Por favor, insira um link.";
+                return;
+            }
+            statusText.innerText = "Aguardando a API...";
+
+            fetch(`http://helya.pylex.xyz:10234/api/addlink?url=${encodeURIComponent(link)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.result) {
+                        statusText.innerText = `Resultado: ${data.result}`;
+                    } else {
+                        statusText.innerText = "Link errado ou falha no bypass.";
+                    }
+                })
+                .catch(() => {
+                    statusText.innerText = "Erro ao conectar com a API.";
+                });
+        }
+    </script>
+</body>
+</html>
